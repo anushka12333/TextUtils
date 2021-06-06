@@ -22,21 +22,21 @@ def analyze(request):
                 analyzed+=char
         params={'purpose':'Removed Punctuations','analyze_text':analyzed}
         djtext=analyzed
-        # return render(request,'analyze.html',params)
+      
     if(fullcaps=='on'):
         analyzed=""
         for char in djtext:
             analyzed+=char.upper()
         params={'purpose':'Changed To Uppercase','analyze_text':analyzed}
         djtext=analyzed
-        # return render(request,'analyze.html',params)   
+  
     if(newline=='on'):
         analyzed=""
         for char in djtext:
             if (char !="\n"):
                 analyzed+=char
         params={'purpose':'Remove Newline','analyze_text':analyzed}
-        # return render(request,'analyze.html',params)  
+       
         djtext=analyzed
 
     if(extraspaceremover=='on'):
@@ -47,7 +47,7 @@ def analyze(request):
                 else:
                     analyzed+=char
             params={'purpose':'Remove extra space','analyze_text':analyzed}
-            # return render(request,'analyze.html',params)   
+            
             djtext=analyzed
                          
     if(counterchar=='on'):
@@ -59,25 +59,11 @@ def analyze(request):
                     analyzed+=1
             params={'purpose':'Count the characters','analyze_text':analyzed}
             djtext=analyzed
-    return render(request,'analyze.html',params)    
-    # return render(request,'analyze.html',params)            
-   
-# def removepunc(request):
-#     # print(request.GET.get('text','default'))
-#     djtext=request.GET.get('text','default')
-#     print(djtext)
-#     return HttpResponse("remove punc <a href='/'>back</a>")
+      
+           
+    if(removepunc != "on" and newline!="on" and extraspaceremover!="on" and fullcaps!="on"):
+        return HttpResponse("please select any operation and try again")
 
-# def capfirst(request):
-#     return HttpResponse("capitalize first")
+    return render(request,'analyze.html',params) 
 
-# def newlineremove(request):
-#     return HttpResponse("capitalize first")
-
-
-# def spaceremove(request):
-#     return HttpResponse("space remover")
-
-# def charcount(request):
-#     return HttpResponse("charcount ")
 
